@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookshelf · Ravali Pochampally</title>
+  <meta name="description" content="Non-fiction books Ravali Pochampally has enjoyed and recommends: business and technology, science, investigative journalism, lifestyle and memoirs.">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="page page-wide">
+    <p class="crumb"><a href="./">← Ravali Pochampally</a></p>
+    <h1>📚 Bookshelf</h1>
+    <p class="lede">I mostly read non-fiction, and good non-fiction recommendations have always been hard to come by. So I thought I'd jot down some notes on the books I've enjoyed, in case they help someone else find their next read.</p>
+
+    <!-- Rotating spotlight: filled in from the BOOKS list below -->
+    <section class="spotlight" aria-roledescription="carousel" aria-label="Featured books">
+      <div class="spot-stage" id="spot-stage" aria-live="polite"></div>
+      <div class="spot-controls">
+        <button class="spot-btn" id="spot-prev" aria-label="Previous book">‹</button>
+        <div class="spot-dots" id="spot-dots" role="tablist"></div>
+        <button class="spot-btn" id="spot-next" aria-label="Next book">›</button>
+      </div>
+    </section>
+
+    <nav class="shelf-nav" id="shelf-nav" aria-label="Sections"></nav>
+
+    <!-- Shelves: one per section, filled in from the BOOKS list below -->
+    <div id="shelves"></div>
+  </div>
+
+  <script>
+    /*
+      To add a book: add a line to the right section below.
+      cover = file in images/books/, sub = subtitle (optional), isbn = 13-digit ISBN.
+      Links go to that edition on Bookshop.org. To use a different page, add url: "https://...".
+    */
+    const BOOKS = [
+      { section: "Business and Technology", items: [
+        { title: "Black Edge", sub: "Inside Information, Dirty Money, and the Quest to Bring Down the Most Wanted Man on Wall Street", author: "Sheelah Kolhatkar", cover: "black-edge", isbn: "9780812985795" },
+        { title: "The Billionaire's Apprentice", sub: "The Rise of the Indian-American Elite and the Fall of the Galleon Hedge Fund", author: "Anita Raghavan", cover: "billionaires-apprentice", isbn: "9781455504039" },
+        { title: "When Genius Failed", sub: "The Rise and Fall of Long-Term Capital Management", author: "Roger Lowenstein", cover: "when-genius-failed", isbn: "9780375758256" },
+        { title: "Zero to One", sub: "Notes on Startups, or How to Build the Future", author: "Peter Thiel with Blake Masters", cover: "zero-to-one", isbn: "9780804139298" },
+        { title: "The Everything Store", sub: "Jeff Bezos and the Age of Amazon", author: "Brad Stone", cover: "everything-store", isbn: "9780316219266" },
+      ]},
+      { section: "Science", items: [
+        { title: "Astrophysics for People in a Hurry", author: "Neil deGrasse Tyson", cover: "astrophysics", isbn: "9780393609394" },
+        { title: "The Emperor of All Maladies", sub: "A Biography of Cancer", author: "Siddhartha Mukherjee", cover: "emperor-of-all-maladies", isbn: "9781439170915" },
+        { title: "The Sixth Extinction", sub: "An Unnatural History", author: "Elizabeth Kolbert", cover: "sixth-extinction", isbn: "9781250062185" },
+        { title: "Sapiens", sub: "A Brief History of Humankind", author: "Yuval Noah Harari", cover: "sapiens", isbn: "9780062316097" },
+        { title: "The Death and Life of the Great Lakes", author: "Dan Egan", cover: "death-and-life-great-lakes", isbn: "9780393246438" },
+      ]},
+      { section: "Investigative Journalism", items: [
+        { title: "Empire of Pain", sub: "The Secret History of the Sackler Dynasty", author: "Patrick Radden Keefe", cover: "empire-of-pain", isbn: "9780385545686" },
+        { title: "Bad Blood", sub: "Secrets and Lies in a Silicon Valley Startup", author: "John Carreyrou", cover: "bad-blood", isbn: "9781524731656" },
+        { title: "Say Nothing", sub: "A True Story of Murder and Memory in Northern Ireland", author: "Patrick Radden Keefe", cover: "say-nothing", isbn: "9780307279286" },
+        { title: "Red Notice", sub: "A True Story of High Finance, Murder, and One Man's Fight for Justice", author: "Bill Browder", cover: "red-notice", isbn: "9781476755748" },
+      ]},
+      { section: "Lifestyle", items: [
+        { title: "The Blue Zones of Happiness", sub: "Lessons from the World's Happiest People", author: "Dan Buettner", cover: "blue-zones-happiness", isbn: "9781426218484" },
+        { title: "Outlive", sub: "The Science and Art of Longevity", author: "Peter Attia with Bill Gifford", cover: "outlive", isbn: "9780593236598" },
+        { title: "How to Raise an Adult", sub: "Break Free of the Overparenting Trap and Prepare Your Kid for Success", author: "Julie Lythcott-Haims", cover: "how-to-raise-an-adult", isbn: "9781627791779" },
+        { title: "Deep Work", sub: "Rules for Focused Success in a Distracted World", author: "Cal Newport", cover: "deep-work", isbn: "9781455586691" },
+      ]},
+      { section: "Memoirs", items: [
+        { title: "Bossypants", author: "Tina Fey", cover: "bossypants", isbn: "9780316056861" },
+        { title: "Born a Crime", sub: "Stories from a South African Childhood", author: "Trevor Noah", cover: "born-a-crime", isbn: "9780399588198" },
+        { title: "Steve Jobs", author: "Walter Isaacson", cover: "steve-jobs", isbn: "9781451648539" },
+        { title: "Strangers", sub: "A Memoir of a Marriage", author: "Belle Burden", cover: "strangers", isbn: "9780593733318" },
+        { title: "Man's Search for Meaning", author: "Viktor E. Frankl", cover: "mans-search-for-meaning", isbn: "9780807014271" },
+        { title: "When Breath Becomes Air", author: "Paul Kalanithi", cover: "when-breath-becomes-air", isbn: "9780812988406" },
+      ]},
+    ];
+
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const link = b => b.url || "https://bookshop.org/book/" + b.isbn;
+    const img = b => "images/books/" + b.cover + ".jpg";
+
+    // ---------- Shelves ----------
+    const shelves = document.getElementById("shelves");
+    const nav = document.getElementById("shelf-nav");
+    BOOKS.forEach(group => {
+      const id = slug(group.section);
+      nav.insertAdjacentHTML("beforeend", `<a class="chip" href="#${id}">${esc(group.section)} <span>${group.items.length}</span></a>`);
+      shelves.insertAdjacentHTML("beforeend", `
+        <section class="shelf" id="${id}">
+          <h2>${esc(group.section)}</h2>
+          <div class="shelf-row">
+            ${group.items.map(b => `
+              <a class="book" href="${link(b)}" target="_blank" rel="noopener" title="${esc(b.title)}${b.sub ? ": " + esc(b.sub) : ""}, by ${esc(b.author)}">
+                <span class="cover"><img src="${img(b)}" alt="Cover of ${esc(b.title)}" loading="lazy"></span>
+                <span class="book-title">${esc(b.title)}</span>
+                <span class="book-author">${esc(b.author)}</span>
+              </a>`).join("")}
+          </div>
+        </section>`);
+    });
+
+    // ---------- Spotlight (rotates through every book) ----------
+    const all = BOOKS.flatMap(g => g.items.map(b => ({ ...b, section: g.section })));
+    // Shuffle so each visit starts somewhere different.
+    for (let i = all.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [all[i], all[j]] = [all[j], all[i]]; }
+
+    const stage = document.getElementById("spot-stage");
+    const dots = document.getElementById("spot-dots");
+    all.forEach((b, i) => dots.insertAdjacentHTML("beforeend",
+      `<button class="spot-dot" role="tab" aria-label="${esc(b.title)}" data-i="${i}"></button>`));
+
+    let cur = 0, timer = null;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function show(i) {
+      cur = (i + all.length) % all.length;
+      const b = all[cur];
+      stage.innerHTML = `
+        <a class="spot-card" href="${link(b)}" target="_blank" rel="noopener">
+          <span class="spot-cover"><img src="${img(b)}" alt="Cover of ${esc(b.title)}"></span>
+          <span class="spot-text">
+            <span class="spot-cat">${esc(b.section)}</span>
+            <span class="spot-title">${esc(b.title)}</span>
+            ${b.sub ? `<span class="spot-sub">${esc(b.sub)}</span>` : ""}
+            <span class="spot-author">by ${esc(b.author)}</span>
+            <span class="spot-go">Find it on Bookshop.org ↗</span>
+          </span>
+        </a>`;
+      dots.querySelectorAll(".spot-dot").forEach((d, k) => d.setAttribute("aria-selected", k === cur));
+    }
+    function start() { if (!reduce) { stop(); timer = setInterval(() => show(cur + 1), 4500); } }
+    function stop() { clearInterval(timer); timer = null; }
+
+    document.getElementById("spot-prev").onclick = () => { show(cur - 1); start(); };
+    document.getElementById("spot-next").onclick = () => { show(cur + 1); start(); };
+    dots.onclick = e => { const d = e.target.closest(".spot-dot"); if (d) { show(+d.dataset.i); start(); } };
+    const spot = document.querySelector(".spotlight");
+    spot.addEventListener("mouseenter", stop);
+    spot.addEventListener("mouseleave", start);
+    spot.addEventListener("focusin", stop);
+    spot.addEventListener("focusout", start);
+
+    show(0);
+    start();
+  </script>
+</body>
+</html>
