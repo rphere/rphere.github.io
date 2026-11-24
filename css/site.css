@@ -241,9 +241,14 @@ h2 {
   line-height: 1.15;
 }
 .spot-sub { font-family: Georgia, serif; font-style: italic; font-size: 1.1rem; color: var(--muted); }
-.spot-author { font-size: 1rem; margin-top: 4px; }
-.spot-go { color: var(--accent); font-weight: 600; margin-top: 10px; }
-.spot-card:hover .spot-go { text-decoration: underline; }
+.spot-note {
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+}
 
 .spot-controls {
   display: flex;

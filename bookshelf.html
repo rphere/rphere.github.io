@@ -35,43 +35,44 @@
     /*
       To add a book: add a line to the right section below.
       cover = file in images/books/, sub = subtitle (optional), isbn = 13-digit ISBN.
+      note = your snippet, shown in the spotlight at the top (leave "" to show none).
       Links go to that edition on Bookshop.org. To use a different page, add url: "https://...".
     */
     const BOOKS = [
       { section: "Business and Technology", items: [
-        { title: "Black Edge", sub: "Inside Information, Dirty Money, and the Quest to Bring Down the Most Wanted Man on Wall Street", author: "Sheelah Kolhatkar", cover: "black-edge", isbn: "9780812985795" },
-        { title: "The Billionaire's Apprentice", sub: "The Rise of the Indian-American Elite and the Fall of the Galleon Hedge Fund", author: "Anita Raghavan", cover: "billionaires-apprentice", isbn: "9781455504039" },
-        { title: "When Genius Failed", sub: "The Rise and Fall of Long-Term Capital Management", author: "Roger Lowenstein", cover: "when-genius-failed", isbn: "9780375758256" },
-        { title: "Zero to One", sub: "Notes on Startups, or How to Build the Future", author: "Peter Thiel with Blake Masters", cover: "zero-to-one", isbn: "9780804139298" },
-        { title: "The Everything Store", sub: "Jeff Bezos and the Age of Amazon", author: "Brad Stone", cover: "everything-store", isbn: "9780316219266" },
+        { title: "Black Edge", sub: "Inside Information, Dirty Money, and the Quest to Bring Down the Most Wanted Man on Wall Street", author: "Sheelah Kolhatkar", cover: "black-edge", isbn: "9780812985795", note: "" },
+        { title: "The Billionaire's Apprentice", sub: "The Rise of the Indian-American Elite and the Fall of the Galleon Hedge Fund", author: "Anita Raghavan", cover: "billionaires-apprentice", isbn: "9781455504039", note: "" },
+        { title: "When Genius Failed", sub: "The Rise and Fall of Long-Term Capital Management", author: "Roger Lowenstein", cover: "when-genius-failed", isbn: "9780375758256", note: "" },
+        { title: "Zero to One", sub: "Notes on Startups, or How to Build the Future", author: "Peter Thiel with Blake Masters", cover: "zero-to-one", isbn: "9780804139298", note: "" },
+        { title: "The Everything Store", sub: "Jeff Bezos and the Age of Amazon", author: "Brad Stone", cover: "everything-store", isbn: "9780316219266", note: "" },
       ]},
       { section: "Science", items: [
-        { title: "Astrophysics for People in a Hurry", author: "Neil deGrasse Tyson", cover: "astrophysics", isbn: "9780393609394" },
-        { title: "The Emperor of All Maladies", sub: "A Biography of Cancer", author: "Siddhartha Mukherjee", cover: "emperor-of-all-maladies", isbn: "9781439170915" },
-        { title: "The Sixth Extinction", sub: "An Unnatural History", author: "Elizabeth Kolbert", cover: "sixth-extinction", isbn: "9781250062185" },
-        { title: "Sapiens", sub: "A Brief History of Humankind", author: "Yuval Noah Harari", cover: "sapiens", isbn: "9780062316097" },
-        { title: "The Death and Life of the Great Lakes", author: "Dan Egan", cover: "death-and-life-great-lakes", isbn: "9780393355550", url: "https://bookshop.org/p/books/the-death-and-life-of-the-great-lakes-dan-egan/406b91a2994bd4eb?ean=9780393355550" },
+        { title: "Astrophysics for People in a Hurry", author: "Neil deGrasse Tyson", cover: "astrophysics", isbn: "9780393609394", note: "" },
+        { title: "The Emperor of All Maladies", sub: "A Biography of Cancer", author: "Siddhartha Mukherjee", cover: "emperor-of-all-maladies", isbn: "9781439170915", note: "" },
+        { title: "The Sixth Extinction", sub: "An Unnatural History", author: "Elizabeth Kolbert", cover: "sixth-extinction", isbn: "9781250062185", note: "" },
+        { title: "Sapiens", sub: "A Brief History of Humankind", author: "Yuval Noah Harari", cover: "sapiens", isbn: "9780062316097", note: "" },
+        { title: "The Death and Life of the Great Lakes", author: "Dan Egan", cover: "death-and-life-great-lakes", isbn: "9780393355550", url: "https://bookshop.org/p/books/the-death-and-life-of-the-great-lakes-dan-egan/406b91a2994bd4eb?ean=9780393355550", note: "" },
       ]},
       { section: "Investigative Journalism", items: [
-        { title: "Empire of Pain", sub: "The Secret History of the Sackler Dynasty", author: "Patrick Radden Keefe", cover: "empire-of-pain", isbn: "9780385545686" },
-        { title: "Bad Blood", sub: "Secrets and Lies in a Silicon Valley Startup", author: "John Carreyrou", cover: "bad-blood", isbn: "9781524731656" },
-        { title: "Say Nothing", sub: "A True Story of Murder and Memory in Northern Ireland", author: "Patrick Radden Keefe", cover: "say-nothing", isbn: "9780307279286" },
-        { title: "Red Notice", sub: "A True Story of High Finance, Murder, and One Man's Fight for Justice", author: "Bill Browder", cover: "red-notice", isbn: "9781476755748" },
-        { title: "Billion Dollar Whale", sub: "The Man Who Fooled Wall Street, Hollywood, and the World", author: "Tom Wright and Bradley Hope", cover: "billion-dollar-whale", isbn: "9780316436472", url: "https://bookshop.org/p/books/billion-dollar-whale-the-man-who-fooled-wall-street-hollywood-and-the-world-bradley-hope/942546a451bd9199?ean=9780316436472" },
+        { title: "Empire of Pain", sub: "The Secret History of the Sackler Dynasty", author: "Patrick Radden Keefe", cover: "empire-of-pain", isbn: "9780385545686", note: "" },
+        { title: "Bad Blood", sub: "Secrets and Lies in a Silicon Valley Startup", author: "John Carreyrou", cover: "bad-blood", isbn: "9781524731656", note: "" },
+        { title: "Say Nothing", sub: "A True Story of Murder and Memory in Northern Ireland", author: "Patrick Radden Keefe", cover: "say-nothing", isbn: "9780307279286", note: "" },
+        { title: "Red Notice", sub: "A True Story of High Finance, Murder, and One Man's Fight for Justice", author: "Bill Browder", cover: "red-notice", isbn: "9781476755748", note: "" },
+        { title: "Billion Dollar Whale", sub: "The Man Who Fooled Wall Street, Hollywood, and the World", author: "Tom Wright and Bradley Hope", cover: "billion-dollar-whale", isbn: "9780316436472", url: "https://bookshop.org/p/books/billion-dollar-whale-the-man-who-fooled-wall-street-hollywood-and-the-world-bradley-hope/942546a451bd9199?ean=9780316436472", note: "" },
       ]},
       { section: "Lifestyle", items: [
-        { title: "The Blue Zones of Happiness", sub: "Lessons from the World's Happiest People", author: "Dan Buettner", cover: "blue-zones-happiness", isbn: "9781426218484" },
-        { title: "Outlive", sub: "The Science and Art of Longevity", author: "Peter Attia with Bill Gifford", cover: "outlive", isbn: "9780593236598" },
-        { title: "How to Raise an Adult", sub: "Break Free of the Overparenting Trap and Prepare Your Kid for Success", author: "Julie Lythcott-Haims", cover: "how-to-raise-an-adult", isbn: "9781627791779" },
-        { title: "Deep Work", sub: "Rules for Focused Success in a Distracted World", author: "Cal Newport", cover: "deep-work", isbn: "9781455586691" },
+        { title: "The Blue Zones of Happiness", sub: "Lessons from the World's Happiest People", author: "Dan Buettner", cover: "blue-zones-happiness", isbn: "9781426218484", note: "" },
+        { title: "Outlive", sub: "The Science and Art of Longevity", author: "Peter Attia with Bill Gifford", cover: "outlive", isbn: "9780593236598", note: "" },
+        { title: "How to Raise an Adult", sub: "Break Free of the Overparenting Trap and Prepare Your Kid for Success", author: "Julie Lythcott-Haims", cover: "how-to-raise-an-adult", isbn: "9781627791779", note: "" },
+        { title: "Deep Work", sub: "Rules for Focused Success in a Distracted World", author: "Cal Newport", cover: "deep-work", isbn: "9781455586691", note: "" },
       ]},
       { section: "Memoirs", items: [
-        { title: "Bossypants", author: "Tina Fey", cover: "bossypants", isbn: "9780316056861" },
-        { title: "Born a Crime", sub: "Stories from a South African Childhood", author: "Trevor Noah", cover: "born-a-crime", isbn: "9780399588198" },
-        { title: "Steve Jobs", author: "Walter Isaacson", cover: "steve-jobs", isbn: "9781451648539" },
-        { title: "Strangers", sub: "A Memoir of a Marriage", author: "Belle Burden", cover: "strangers", isbn: "9780593733318" },
-        { title: "Man's Search for Meaning", author: "Viktor E. Frankl", cover: "mans-search-for-meaning", isbn: "9780807014271" },
-        { title: "When Breath Becomes Air", author: "Paul Kalanithi", cover: "when-breath-becomes-air", isbn: "9780812988406" },
+        { title: "Bossypants", author: "Tina Fey", cover: "bossypants", isbn: "9780316056861", note: "" },
+        { title: "Born a Crime", sub: "Stories from a South African Childhood", author: "Trevor Noah", cover: "born-a-crime", isbn: "9780399588198", note: "" },
+        { title: "Steve Jobs", author: "Walter Isaacson", cover: "steve-jobs", isbn: "9781451648539", note: "" },
+        { title: "Strangers", sub: "A Memoir of a Marriage", author: "Belle Burden", cover: "strangers", isbn: "9780593733318", note: "" },
+        { title: "Man's Search for Meaning", author: "Viktor E. Frankl", cover: "mans-search-for-meaning", isbn: "9780807014271", note: "" },
+        { title: "When Breath Becomes Air", author: "Paul Kalanithi", cover: "when-breath-becomes-air", isbn: "9780812988406", note: "" },
       ]},
     ];
 
@@ -123,8 +124,7 @@
             <span class="spot-cat">${esc(b.section)}</span>
             <span class="spot-title">${esc(b.title)}</span>
             ${b.sub ? `<span class="spot-sub">${esc(b.sub)}</span>` : ""}
-            <span class="spot-author">by ${esc(b.author)}</span>
-            <span class="spot-go">Find it on Bookshop.org ↗</span>
+            ${b.note ? `<span class="spot-note">${esc(b.note)}</span>` : ""}
           </span>
         </a>`;
       dots.querySelectorAll(".spot-dot").forEach((d, k) => d.setAttribute("aria-selected", k === cur));
