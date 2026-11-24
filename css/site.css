@@ -43,6 +43,30 @@ h1 {
   color: var(--muted);
 }
 .contact li { margin: 2px 0; }
+.location { margin: 12px 0 6px; color: var(--muted); }
+.social {
+  display: flex;
+  gap: 14px;
+  margin: 0 0 24px;
+}
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--muted);
+  transition: color 0.15s, border-color 0.15s, transform 0.15s;
+}
+.social a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.social svg { width: 18px; height: 18px; fill: currentColor; }
+.social svg[fill="none"] { fill: none; }
 .lede { margin: 0 0 8px; }
 .muted { color: var(--muted); }
 
